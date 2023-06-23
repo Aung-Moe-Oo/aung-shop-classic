@@ -5,8 +5,9 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { Tooltip, Badge } from "@mui/material";
 import { mobile } from "../responsive";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Container = styled.div`
   position: fixed;
@@ -36,7 +37,7 @@ const Language = styled.span`
   cursor: pointer;
   font-size: 14px;
 `;
-const SearchContainer = styled.div`
+const SearchContainer = styled.form`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
@@ -72,16 +73,35 @@ const MenuItem = styled.div`
 `;
 
 export const Navbar = () => {
-  const quantity = useSelector((state) => state.cart.products.length);
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
 
+  const quantity = useSelector((state) => state.cart.products.length);
   const heart = useSelector((state) => state.cart.favourites.length);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate("/searched/" + input);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      submitHandler();
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Left>
           <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="search" />
+          <SearchContainer onSubmit={submitHandler}>
+            <Input
+              placeholder="search"
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+              value={input}
+              onKeyDown={handleKeyDown}
+            />
             <Search style={{ color: "gray", fontSize: "16px" }} />
           </SearchContainer>
         </Left>

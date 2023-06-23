@@ -10,6 +10,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Success from "./pages/Success";
+import Searched from "./pages/Searched";
 
 const App = () => {
   return (
@@ -26,6 +27,8 @@ const App = () => {
         <Route path="/favourites" element={<Favourites />} />
 
         <Route path="/success" element={<Success />} />
+
+        <Route path="/searched/:name" element={<Searched />} />
 
         <Route path="/*" element={<Navigate to="/" replace />} />
       </Routes>
