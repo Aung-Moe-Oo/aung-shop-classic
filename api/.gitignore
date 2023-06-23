@@ -32,7 +32,7 @@ coverage
       "use": "@vercel/node"
     },
     {
-      "src": "./client/build",
+      "src": "./client/dist",
       "use": "@vercel/static"
     }
   ],
@@ -92,7 +92,7 @@ web_modules/
       "use": "@vercel/node"
     },
     {
-      "src": "./client/build",
+      "src": "./client/dist",
       "use": "@vercel/static"
     }
   ],
