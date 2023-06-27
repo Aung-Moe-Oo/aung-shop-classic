@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import Footer from "../components/Footer";
+import { Announcement } from "../components/Announcement";
 import { Navbar } from "../components/Navbar";
 import { mobile } from "../responsive";
+import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Tooltip } from "@mui/material";
+import styled from "styled-components";
 import {
   decrementQuantity,
   incrementQuantity,
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
   ${mobile({ padding: "10px" })}
 `;
 const Top = styled.div`
-  padding-top: 78px;
+  padding: 78px 0 16px;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -160,6 +161,7 @@ const Cart = () => {
   return (
     <Container>
       <Navbar />
+      <Announcement />
       <Wrapper>
         <Top>
           <Link to={"/"}>
@@ -178,7 +180,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products?.map((product) => (
-              <Product key={product._id}>
+              <Product key={product._id + product.color + product.size}>
                 <ProductDetail>
                   <Image src={product.img} />
                   <Details>
@@ -199,7 +201,15 @@ const Cart = () => {
                     <Tooltip title="Plus" arrow>
                       <AddCircleOutline
                         sx={{ cursor: "pointer" }}
-                        onClick={() => dispatch(incrementQuantity(product._id))}
+                        onClick={() =>
+                          dispatch(
+                            incrementQuantity({
+                              _id: product._id,
+                              color: product.color,
+                              size: product.size,
+                            })
+                          )
+                        }
                       />
                     </Tooltip>
                     <ProductAmount>{product.quantity} </ProductAmount>
@@ -207,7 +217,15 @@ const Cart = () => {
                     <Tooltip title="Minus" arrow>
                       <RemoveCircleOutline
                         sx={{ cursor: "pointer" }}
-                        onClick={() => dispatch(decrementQuantity(product._id))}
+                        onClick={() =>
+                          dispatch(
+                            decrementQuantity({
+                              _id: product._id,
+                              color: product.color,
+                              size: product.size,
+                            })
+                          )
+                        }
                       />
                     </Tooltip>
                     <Tooltip title="Remove" arrow>
@@ -218,7 +236,15 @@ const Cart = () => {
                           position: "absolute",
                           right: "-50px",
                         }}
-                        onClick={() => dispatch(removeItem(product._id))}
+                        onClick={() =>
+                          dispatch(
+                            removeItem({
+                              _id: product._id,
+                              color: product.color,
+                              size: product.size,
+                            })
+                          )
+                        }
                       />
                     </Tooltip>
                   </ProductAmountContainer>

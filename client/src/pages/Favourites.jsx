@@ -45,6 +45,8 @@ const ProductContainer = styled.div`
   padding: 20px;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  ${mobile({ padding: "0" })}}
 `;
 
 const Favourites = () => {

@@ -18,8 +18,6 @@ const Container = styled.div`
   font-weight: 500;
   ${mobile({ top: "48px" })}
 `;
-const Announcement = () => {
+export const Announcement = () => {
   return <Container>Super Deal! Free shipping on orders over $50</Container>;
 };
-
-export default Announcement;

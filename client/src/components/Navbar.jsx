@@ -1,4 +1,3 @@
-// import Badge from "@mui/material/Badge";
 import Search from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -31,27 +30,33 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  ${mobile({ display: "none" })}
 `;
+
 const Language = styled.span`
   cursor: pointer;
   font-size: 14px;
+
+  ${mobile({ display: "none" })}
 `;
 const SearchContainer = styled.form`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
-  margin-left: 25px;
-  padding: 5px;
+  margin-left: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  ${mobile({ padding: "5px" })}
 `;
 const Input = styled.input`
   border: none;
-  ${mobile({ width: "50px" })}
+  ${mobile({ width: "100px" })}
 `;
 
 const Center = styled.div`
   text-align: center;
   flex: 1;
+
+  ${mobile({ paddingLeft: "18px" })}
 `;
 
 const Logo = styled.h1`
@@ -63,7 +68,7 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 2, paddingRight: "18px" })}
+  ${mobile({ paddingRight: "18px" })}
 `;
 const MenuItem = styled.div`
   cursor: pointer;
@@ -86,7 +91,7 @@ export const Navbar = () => {
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
-      submitHandler();
+      submitHandler(event);
     }
   };
   return (

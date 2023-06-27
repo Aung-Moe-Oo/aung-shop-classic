@@ -7,7 +7,7 @@ import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import { mobile } from "../responsive";
 import { publicRequest } from "../requestMethods";
-import Announcement from "../components/Announcement";
+import { Announcement } from "../components/Announcement";
 
 const Container = styled.div``;
 

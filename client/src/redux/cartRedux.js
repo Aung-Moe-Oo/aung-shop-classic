@@ -45,7 +45,10 @@ const cartSlice = createSlice({
     },
     addToCart: (state, action) => {
       const itemInCart = state.products.find(
-        (item) => item._id === action.payload._id
+        (item) =>
+          item._id === action.payload._id &&
+          item.size === action.payload.size &&
+          item.color === action.payload.color
       );
       if (itemInCart) {
         itemInCart.quantity++;
@@ -54,11 +57,23 @@ const cartSlice = createSlice({
       }
     },
     incrementQuantity: (state, action) => {
-      const item = state.products.find((item) => item._id === action.payload);
-      item.quantity++;
+      const item = state.products.find(
+        (item) =>
+          item._id === action.payload._id &&
+          item.size === action.payload.size &&
+          item.color === action.payload.color
+      );
+      if (item) {
+        item.quantity++;
+      }
     },
     decrementQuantity: (state, action) => {
-      const item = state.products.find((item) => item._id === action.payload);
+      const item = state.products.find(
+        (item) =>
+          item._id === action.payload._id &&
+          item.size === action.payload.size &&
+          item.color === action.payload.color
+      );
       if (item.quantity === 1) {
         item.quantity = 1;
       } else {
@@ -66,10 +81,11 @@ const cartSlice = createSlice({
       }
     },
     removeItem: (state, action) => {
-      const removeItem = state.products.filter(
-        (item) => item._id !== action.payload
+      const { _id, size, color } = action.payload;
+
+      state.products = state.products.filter(
+        (item) => item._id !== _id || item.size !== size || item.color !== color
       );
-      state.products = removeItem;
     },
   },
 });

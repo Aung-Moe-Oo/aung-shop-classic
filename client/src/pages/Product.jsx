@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
+import { Announcement } from "../components/Announcement";
 import Footer from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
@@ -95,7 +95,7 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
-  border: 1px solid #000;
+  outline: 2px solid ${(props) => (props.selected ? "#000" : "transparent")};
   margin: 0 5px;
   cursor: pointer;
 `;
@@ -109,7 +109,7 @@ const AddContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ width: "100%", flexDirection: "column", gap: "16px" })}
+  ${mobile({ width: "100%", flexDirection: "column-reverse", gap: "16px" })}
 `;
 const Button1 = styled.button`
   font-weight: 700;
@@ -168,15 +168,15 @@ const Product = () => {
       addToCart({
         ...product,
         color: color.length > 0 ? color : product.color[0],
-        size,
+        size: size.length > 0 ? size : product.size[0],
       })
     );
   };
 
   return (
     <Container>
-      <Announcement />
       <Navbar />
+      <Announcement />
       <Top>
         <Link to={"/"}>
           <TopButton>CONTINUE SHOPPING</TopButton>
@@ -195,7 +195,12 @@ const Product = () => {
             <Filter>
               <FilterTitle>Color:</FilterTitle>
               {product.color?.map((c) => (
-                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+                <FilterColor
+                  color={c}
+                  selected={color === c}
+                  key={c}
+                  onClick={() => setColor(c)}
+                />
               ))}
             </Filter>
             <Filter>
