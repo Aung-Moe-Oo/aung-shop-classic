@@ -60,11 +60,13 @@ const Product = styled.div`
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  ${mobile({ flexDirection: "column" })}
 `;
 const Image = styled.img`
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  ${mobile({ margin: "0 auto" })}
 `;
 const Details = styled.div`
   display: flex;
@@ -82,6 +84,10 @@ const ProductColor = styled.div`
   border-radius: 50%;
   border: 1px solid #000;
   background-color: ${(props) => props.color};
+`;
+const ColorContainer = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 const ProductSize = styled.span``;
 
@@ -190,7 +196,10 @@ const Cart = () => {
                     <ProductId>
                       <b>ID: </b> {product._id}
                     </ProductId>
-                    <ProductColor color={product.color} />
+                    <ColorContainer>
+                      <b>Color:</b>
+                      <ProductColor color={product.color} />
+                    </ColorContainer>
                     <ProductSize>
                       <b>Size: </b> {product.size}
                     </ProductSize>

@@ -95,8 +95,8 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
-  outline: 2px solid ${(props) => (props.selected ? "#000" : "transparent")};
-  margin: 0 5px;
+  outline: 2px solid ${(props) => (props.selected ? "#111" : "#ddd")};
+  margin-left: 10px;
   cursor: pointer;
 `;
 const FilterSize = styled.select`

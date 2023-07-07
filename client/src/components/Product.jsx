@@ -42,7 +42,9 @@ const Circle = styled.div`
   position: absolute;
 `;
 const Image = styled.img`
-  height: 75%;
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
   z-index: 2;
 `;
 
