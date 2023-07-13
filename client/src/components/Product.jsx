@@ -1,6 +1,7 @@
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { SearchOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { Tooltip } from "@mui/material";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,8 @@ const Container = styled.div`
   margin: 5px;
   min-width: 280px;
   height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,6 +49,13 @@ const Image = styled.img`
   width: 200px;
   object-fit: contain;
   z-index: 2;
+`;
+const Title = styled.h5`
+  position: absolute;
+  bottom: 1rem;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  font-weight: 300;
 `;
 
 const Icon = styled.div`
@@ -71,22 +81,27 @@ const Product = ({ item }) => {
     <Container>
       <Circle />
       <Image src={item.img} />
+      <Title>{item.title}</Title>
       <Info>
-        <Icon
-          onClick={() => dispatch(saveItem(item._id))}
-          style={{
-            color: cart.favourites.find((i) => i === item._id)
-              ? "#ff0000e1"
-              : "#000",
-          }}
-        >
-          <FavoriteBorderOutlined />
-        </Icon>
-        <Icon>
-          <Link to={`/product/${item._id}`} style={{ color: "#000" }}>
-            <SearchOutlined />
-          </Link>
-        </Icon>
+        <Tooltip title="Favourite" arrow>
+          <Icon
+            onClick={() => dispatch(saveItem(item._id))}
+            style={{
+              color: cart.favourites.find((i) => i === item._id)
+                ? "#ff0000e1"
+                : "#000",
+            }}
+          >
+            <FavoriteBorderOutlined />
+          </Icon>
+        </Tooltip>
+        <Tooltip title="See more" arrow>
+          <Icon>
+            <Link to={`/product/${item._id}`} style={{ color: "#000" }}>
+              <SearchOutlined />
+            </Link>
+          </Icon>
+        </Tooltip>
       </Info>
     </Container>
   );

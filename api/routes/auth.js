@@ -12,12 +12,13 @@ router.post("/register", async (req, res) => {
       req.body.password,
       process.env.PASS_SEC
     ).toString(),
+    isAdmin: true,
   });
   try {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json("Something went wrong!");
   }
 });
 
@@ -25,28 +26,32 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
-    !user && res.status(401).json("Wrong Credentials!");
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res
+        .status(401)
+        .json("Your user ID and/or password does not match.");
+    }
+
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
       process.env.PASS_SEC
     );
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    originalPassword !== req.body.password &&
-      res.status(401).json("Wrong Credentials!");
+    if (originalPassword !== req.body.password) {
+      return res
+        .status(401)
+        .json("Your user ID and/or password does not match.");
+    }
 
-    const accessToken = jwt.sign(
-      {
-        id: user._id,
-        isAdmin: user.isAdmin,
-      },
-      process.env.JWT_SEC,
-      { expiresIn: "3d" }
-    );
     const { password, ...others } = user._doc;
+    const accessToken = jwt.sign({ ...others }, process.env.JWT_SEC, {
+      expiresIn: "1d",
+    });
+    const data = { ...others, accessToken };
 
-    res.status(200).json({ ...others, accessToken });
+    res.cookie("token", accessToken, { httpOnly: true }).status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
   }

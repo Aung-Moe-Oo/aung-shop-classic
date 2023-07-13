@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import Product from "../components/Product";
+import { Announcement } from "../components/Announcement";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
-  padding: 20px;
+  padding: 100px 20px 20px;
 
   ${mobile({ padding: "10px" })}
 `;
@@ -71,6 +72,7 @@ const Favourites = () => {
   return (
     <Container>
       <Navbar />
+      <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>

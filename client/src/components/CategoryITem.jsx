@@ -30,6 +30,7 @@ const Title = styled.h1`
   color: #fff;
   text-shadow: 1px 1px #555;
   margin-bottom: 20px;
+  text-align: center;
   ${mobile({ fontSize: "18px" })}
 `;
 const Button = styled.button`

@@ -11,12 +11,55 @@ import {
 } from "react-router-dom";
 import Success from "./pages/Success";
 import Searched from "./pages/Searched";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import CreateProduct from "./pages/CreateProduct";
+import { useContext } from "react";
+import { AuthContext } from "./redux/authContextProvider";
+import EditProduct from "./pages/EditProduct";
 
 const App = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/admin/register" element={<Register />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route
+          path="/admin/*"
+          element={<Navigate to="/admin/login" replace />}
+        />
+        <Route
+          path="/dashboard"
+          element={
+            currentUser ? <Dashboard /> : <Navigate to="/admin/login" replace />
+          }
+        />
+
+        <Route
+          path="/dashboard/add-product"
+          element={
+            currentUser ? (
+              <CreateProduct />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+
+        <Route
+          path="/dashboard/:id"
+          element={
+            currentUser ? (
+              <EditProduct />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
 
         <Route path="/cart" element={<Cart />} />
 

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "../redux/authContextProvider";
 
 const Container = styled.div`
   width: 100vw;
@@ -18,6 +18,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 const Wrapper = styled.div`
   width: 25%;
@@ -79,21 +80,24 @@ const SideLink = styled.span`
   }
 `;
 
-const Login = () => {
-  const { login } = useContext(AuthContext);
+const Register = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login({
-      email,
-      password,
-    })
+
+    await publicRequest
+      .post("/auth/register", {
+        username,
+        email,
+        password,
+      })
       .then(() => {
-        toast.success("Login Successfully.");
-        navigate("/dashboard");
+        toast.success("Register Successfully");
+        navigate("/admin/login");
       })
       .catch((err) => {
         toast.error(err.response.data);
@@ -114,8 +118,15 @@ const Login = () => {
         theme="light"
       />
       <Wrapper>
-        <Title>SIGN IN</Title>
+        <Title>Register</Title>
         <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="User Name"
+            type="name"
+            name="name"
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
           <Input
             placeholder="User Email"
             type="email"
@@ -131,9 +142,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <Button type="submit">LOG IN</Button>
-          <Link to="/admin/register">
-            <SideLink>Create a new account</SideLink>
+          <Button type="submit">Register</Button>
+          <Link to="/admin/login">
+            <SideLink>Login account</SideLink>
           </Link>
         </Form>
       </Wrapper>
@@ -141,4 +152,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

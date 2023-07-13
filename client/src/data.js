@@ -32,13 +32,13 @@ export const categories = [
   {
     id: 2,
     img: "https://i.ibb.co/NrhTqB1/cloth-2.jpg",
-    title: "WINTER JACKETS",
-    cat: "winter-clothes",
+    title: "WINTER CLOTHES",
+    cat: "winter",
   },
   {
     id: 3,
     img: "https://i.ibb.co/bPZF5wj/cloth-3.jpg",
-    title: "LOUNGEWEAR LOVE!",
+    title: "WOMEN FASHIONS",
     cat: "woman",
   },
 ];
