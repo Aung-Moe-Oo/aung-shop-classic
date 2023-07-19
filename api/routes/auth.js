@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
       req.body.password,
       process.env.PASS_SEC
     ).toString(),
-    isAdmin: true,
+    isAdmin: false,
   });
   try {
     const savedUser = await newUser.save();

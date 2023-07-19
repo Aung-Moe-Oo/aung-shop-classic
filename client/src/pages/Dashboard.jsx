@@ -107,6 +107,7 @@ const Hr = styled.hr`
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -118,13 +119,15 @@ const Dashboard = () => {
       }
     };
     getProduct();
-  }, []);
+  }, [loading]);
 
   const handleDelete = async (id) => {
+    setLoading(true);
     try {
       await publicRequest.delete("/products/" + id, {
         withCredentials: true,
       });
+      setLoading(false);
       toast.success("Successfully Deleted!");
     } catch (err) {
       toast.error(err.response.data);
@@ -178,7 +181,10 @@ const Dashboard = () => {
                   <Link to={`/dashboard/${product._id}`}>
                     <EditButton>Edit</EditButton>
                   </Link>
-                  <DeleteButton onClick={() => handleDelete(product._id)}>
+                  <DeleteButton
+                    disabled={loading}
+                    onClick={() => handleDelete(product._id)}
+                  >
                     Delete
                   </DeleteButton>
                 </Buttons>
