@@ -4,6 +4,7 @@ import { useState } from "react";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 100%;
@@ -79,10 +80,13 @@ const Image = styled.img`
 
 const InfoContainer = styled.div`
   flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 50px 20px;
 `;
 const Title = styled.h1`
-  font-size: 60px;
+  font-size: 40px;
 `;
 const Desc = styled.p`
   margin: 50px 0;
@@ -92,6 +96,7 @@ const Desc = styled.p`
 `;
 const Button = styled.button`
   padding: 10px;
+  height: 50px;
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
@@ -99,6 +104,7 @@ const Button = styled.button`
 
 const Slider = () => {
   const [slideindex, setSlideindex] = useState(0);
+  const { t } = useTranslation();
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideindex(slideindex > 0 ? slideindex - 1 : 2);
@@ -113,21 +119,45 @@ const Slider = () => {
       </Arrow>
 
       <Wrapper slideindex={slideindex}>
-        {sliderItems.map((sliderItem) => (
-          <Slide bg={sliderItem.bg} key={sliderItem.id}>
-            <ImgContainer>
-              <Image src={sliderItem.img} alt="model" />
-            </ImgContainer>
+        <Slide bg={sliderItems[0].bg}>
+          <ImgContainer>
+            <Image src={sliderItems[0].img} alt="model" />
+          </ImgContainer>
 
-            <InfoContainer>
-              <Title>{sliderItem.title}</Title>
-              <Desc>{sliderItem.desc}</Desc>
-              <Link to={`/products/tshirt`}>
-                <Button>SHOP NOW</Button>
-              </Link>
-            </InfoContainer>
-          </Slide>
-        ))}
+          <InfoContainer>
+            <Title>{t("hero-popular")}</Title>
+            <Desc>{t("hero-desc")}</Desc>
+            <Link to={`/products/man`}>
+              <Button>SHOP NOW</Button>
+            </Link>
+          </InfoContainer>
+        </Slide>
+        <Slide bg={sliderItems[1].bg}>
+          <ImgContainer>
+            <Image src={sliderItems[1].img} alt="model" />
+          </ImgContainer>
+
+          <InfoContainer>
+            <Title>{t("hero-winter")}</Title>
+            <Desc>{t("hero-desc")}</Desc>
+            <Link to={`/products/winter`}>
+              <Button>SHOP NOW</Button>
+            </Link>
+          </InfoContainer>
+        </Slide>
+        <Slide bg={sliderItems[2].bg}>
+          <ImgContainer>
+            <Image src={sliderItems[2].img} alt="model" />
+          </ImgContainer>
+
+          <InfoContainer>
+            <Title>{t("hero-summer")}</Title>
+            <Desc>{t("hero-desc")}</Desc>
+            <Link to={`/products/tshirt`}>
+              <Button>SHOP NOW</Button>
+            </Link>
+          </InfoContainer>
+        </Slide>
       </Wrapper>
 
       <ArrowRight direction="right" onClick={() => handleClick("right")}>

@@ -97,7 +97,7 @@ const Register = () => {
       })
       .then(() => {
         toast.success("Register Successfully");
-        navigate("/admin/login");
+        navigate("/login");
       })
       .catch((err) => {
         toast.error(err.response.data);

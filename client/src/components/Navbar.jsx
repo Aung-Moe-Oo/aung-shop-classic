@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import i18next from "i18next";
 
 const Container = styled.div`
   position: fixed;
@@ -32,11 +33,11 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const Language = styled.span`
+const Language = styled.div`
   cursor: pointer;
-  font-size: 14px;
-
-  ${mobile({ display: "none" })}
+  font-size: 18px;
+  width: 36px;
+  ${mobile({ display: "none" })};
 `;
 const SearchContainer = styled.form`
   border: 0.5px solid lightgray;
@@ -78,6 +79,7 @@ const MenuItem = styled.div`
 `;
 
 export const Navbar = () => {
+  const [language, setLanguage] = useState(true);
   const [input, setInput] = useState("");
   const navigate = useNavigate();
 
@@ -94,11 +96,19 @@ export const Navbar = () => {
       submitHandler(event);
     }
   };
+
+  const handleLanguage = () => {
+    setLanguage(!language);
+    i18next.changeLanguage(!language ? "en" : "mm");
+  };
+
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
+          <Language onClick={(e) => handleLanguage(e)}>
+            {language ? "EN" : "MM"}
+          </Language>
           <SearchContainer onSubmit={submitHandler}>
             <Input
               placeholder="search"

@@ -10,6 +10,7 @@ import {
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,9 @@ const Left = styled.div`
 const Logo = styled.h1``;
 const Desc = styled.p`
   margin: 20px 0;
+  min-height: 100px;
+  line-height: 24px;
+  text-align: left;
 `;
 const SocialContainer = styled.div`
   display: flex;
@@ -79,15 +83,12 @@ const Payment = styled.img`
 `;
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <Container>
       <Left>
         <Logo>AUNG.</Logo>
-        <Desc>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-          dicta! Perferendis nam quidem dolorum! Culpa repellendus corporis
-          architecto ad ullam!
-        </Desc>
+        <Desc>{t("long-desc")}</Desc>
         <SocialContainer>
           <SocialIcon color="3b5999">
             <Facebook />

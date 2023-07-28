@@ -4,6 +4,7 @@ import { mobile } from "../responsive";
 import { publicRequest } from "../requestMethods";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   height: 60vh;
@@ -49,6 +50,7 @@ const Button = styled.button`
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const sendMail = async () => {
@@ -66,7 +68,7 @@ const Newsletter = () => {
   return (
     <Container>
       <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite products.</Desc>
+      <Desc>{t("newsletter")}</Desc>
       <InputContainer onSubmit={sendMail}>
         <Input
           type="email"

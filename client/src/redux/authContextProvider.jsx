@@ -20,6 +20,7 @@ export const AuthContextProvider = ({ children }) => {
       sameSite: "strict",
     });
     setCurrentUser(token);
+    return res;
   };
 
   const logout = async () => {

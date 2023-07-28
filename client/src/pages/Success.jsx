@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div``;
 
@@ -34,15 +35,17 @@ const Wrapper = styled.div`
   ${mobile({ padding: "16px", height: "auto" })}
 `;
 
-const Title = styled.h1`
-  font-weight: 200;
+const Title = styled.p`
+  font-size: 24px;
 `;
 
 const Desc = styled.p`
+  font-size: 20px;
   margin: 20px 0;
 `;
 
 const Success = () => {
+  const { t } = useTranslation();
   return (
     <Container>
       <Announcement />
@@ -53,8 +56,8 @@ const Success = () => {
         </Link>
       </Top>
       <Wrapper>
-        <Title>Thanks for subscribing our shop.</Title>
-        <Desc>Please check your email to get more updated news.</Desc>
+        <Title>{t("success-title")}</Title>
+        <Desc>{t("success-desc")}</Desc>
       </Wrapper>
       <Footer />
     </Container>

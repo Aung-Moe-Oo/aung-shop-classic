@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   top: 58px;
@@ -19,5 +20,10 @@ const Container = styled.div`
   ${mobile({ top: "48px" })}
 `;
 export const Announcement = () => {
-  return <Container>Super Deal! Free shipping on orders over $50</Container>;
+  const { t } = useTranslation();
+  return (
+    <Container>
+      <marquee>{t("announcement")}</marquee>
+    </Container>
+  );
 };

@@ -91,9 +91,13 @@ const Login = () => {
       email,
       password,
     })
-      .then(() => {
+      .then((res) => {
         toast.success("Login Successfully.");
-        navigate("/dashboard");
+        if (res.data.isAdmin) {
+          navigate("/dashboard");
+        } else {
+          navigate("/");
+        }
       })
       .catch((err) => {
         toast.error(err.response.data);
@@ -132,7 +136,7 @@ const Login = () => {
             required
           />
           <Button type="submit">LOG IN</Button>
-          <Link to="/admin/register">
+          <Link to="/register">
             <SideLink>Create a new account</SideLink>
           </Link>
         </Form>
