@@ -45,7 +45,7 @@ const SearchContainer = styled.form`
 `;
 const Input = styled.input`
   border: none;
-  ${mobile({ width: "50px" })}
+  ${mobile({ width: "60px" })}
 `;
 
 const Center = styled.div`

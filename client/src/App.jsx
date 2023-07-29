@@ -42,7 +42,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route
-          path={`/${"en-US".includes(currentLanguage) ? "en" : "mm"}`}
+          path={`/${currentLanguage === "mm" ? "mm" : "en"}`}
           element={<Home />}
         />
 
@@ -76,7 +76,7 @@ const App = () => {
           path="/*"
           element={
             <Navigate
-              to={`/${"en-US".includes(currentLanguage) ? "en" : "mm"}`}
+              to={`/${currentLanguage === "mm" ? "mm" : "en"}`}
               replace
             />
           }
