@@ -28,6 +28,7 @@ const Desc = styled.p`
   min-height: 100px;
   line-height: 24px;
   text-align: left;
+  font-size: ${(props) => (props.language == "mm" ? "14px" : "16px")};
 `;
 const SocialContainer = styled.div`
   display: flex;
@@ -48,8 +49,6 @@ const SocialIcon = styled.div`
 const Center = styled.div`
   flex: 1;
   padding: 20px;
-
-  ${mobile({ display: "none" })}
 `;
 const Title = styled.h3`
   margin-bottom: 30px;
@@ -83,12 +82,12 @@ const Payment = styled.img`
 `;
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <Container>
       <Left>
         <Logo>AUNG.</Logo>
-        <Desc>{t("long-desc")}</Desc>
+        <Desc language={i18n.language}>{t("long-desc")}</Desc>
         <SocialContainer>
           <SocialIcon color="3b5999">
             <Facebook />
@@ -120,9 +119,11 @@ const Footer = () => {
             <Link to={"/products/woman"}>Woman Fashion</Link>
           </ListItem>
           <ListItem>
-            <Link to={"/"}>Wishlist</Link>
+            <Link to={"/favourites"}>Wishlist</Link>
           </ListItem>
-          <ListItem>Terms</ListItem>
+          <ListItem>
+            <Link to={"/login"}>Login</Link>
+          </ListItem>
         </List>
       </Center>
 
@@ -133,10 +134,11 @@ const Footer = () => {
         </ContactItem>
         <ContactItem>
           <Phone style={{ marginRight: "10px" }} />
-          +95-9123456789
+          +95-9790801550
         </ContactItem>
         <ContactItem>
-          <MailOutline style={{ marginRight: "10px" }} /> contact@aung.com
+          <MailOutline style={{ marginRight: "10px" }} />
+          saiaungmoeoo.lk@gmail.com
         </ContactItem>
         <Payment src="https://i.ibb.co/mhvTkzV/payment.jpg" />
       </Right>

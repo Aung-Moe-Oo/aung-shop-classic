@@ -20,6 +20,7 @@ import { useContext } from "react";
 import { AuthContext } from "./redux/authContextProvider";
 import EditProduct from "./pages/EditProduct";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 const ProtectedRoute = ({ currentUser }) => {
   if (!currentUser) {
@@ -35,10 +36,15 @@ ProtectedRoute.propTypes = {
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path={`/${"en-US".includes(currentLanguage) ? "en" : "mm"}`}
+          element={<Home />}
+        />
 
         <Route path="/register" element={<Register />} />
 
@@ -66,7 +72,15 @@ const App = () => {
 
         <Route path="/searched/:name" element={<Searched />} />
 
-        <Route path="/*" element={<Navigate to="/" replace />} />
+        <Route
+          path="/*"
+          element={
+            <Navigate
+              to={`/${"en-US".includes(currentLanguage) ? "en" : "mm"}`}
+              replace
+            />
+          }
+        />
       </Routes>
     </Router>
   );

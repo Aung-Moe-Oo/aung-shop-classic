@@ -119,7 +119,7 @@ const Button1 = styled.button`
   cursor: pointer;
   transition: 0.5s ease;
   &:hover {
-    background-color: teal;
+    background-color: #2e8094;
     color: #fff;
   }
   ${mobile({
@@ -129,12 +129,12 @@ const Button1 = styled.button`
 const Button = styled.button`
   font-weight: 700;
   padding: 15px;
-  border: 2px solid teal;
+  border: 2px solid #2e8094;
   background-color: #fff;
   cursor: pointer;
   transition: 0.5s ease;
   &:hover {
-    background-color: teal;
+    background-color: #2e8094;
     color: #fff;
   }
   ${mobile({

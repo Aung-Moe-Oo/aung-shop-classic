@@ -23,12 +23,12 @@ const Button = styled.button`
   margin-top: 1rem;
   font-weight: 700;
   padding: 10px 25px;
-  border: 2px solid teal;
+  border: 2px solid #2e8094;
   background-color: #fff;
   cursor: pointer;
   transition: 0.5s ease;
   &:hover {
-    background-color: teal;
+    background-color: #2e8094;
     color: #fff;
   }
   ${mobile({

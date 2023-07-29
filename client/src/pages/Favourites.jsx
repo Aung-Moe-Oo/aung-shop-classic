@@ -8,24 +8,18 @@ import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import Product from "../components/Product";
 import { Announcement } from "../components/Announcement";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
-  padding: 100px 20px 20px;
-
+  padding: 20px;
   ${mobile({ padding: "10px" })}
 `;
-const Title = styled.h1`
-  font-weight: 300;
-  text-align: center;
-  align-self: flex-start;
-  ${mobile({ alignSelf: "center" })}
-`;
 const Top = styled.div`
+  padding: 78px 0 16px;
   display: flex;
   justify-content: space-between;
   align-content: center;
-  padding: 20px;
 
   ${mobile({ flexDirection: "column", justifyContent: "center", gap: "1rem" })}
 `;
@@ -41,6 +35,23 @@ const TopButton = styled.button`
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
 `;
+const DescWrapper = styled.div`
+  height: 200px;
+  margin-top: 50px;
+  ${mobile({ padding: "10px" })}
+`;
+const Title = styled.h1`
+  font-weight: 200;
+  padding-bottom: 24px;
+  text-align: center;
+  font-size: ${(props) => (props.language == "mm" ? "20px" : "24px")};
+`;
+
+const Desc = styled.h1`
+  font-weight: 300;
+  text-align: center;
+  font-size: ${(props) => (props.language == "mm" ? "20px" : "24px")};
+`;
 const ProductContainer = styled.div`
   display: flex;
   padding: 20px;
@@ -53,7 +64,7 @@ const ProductContainer = styled.div`
 const Favourites = () => {
   const [products, setProducts] = useState([]);
   const heart = useSelector((state) => state.cart.favourites);
-
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -74,18 +85,24 @@ const Favourites = () => {
       <Navbar />
       <Announcement />
       <Wrapper>
-        <Title>YOUR BAG</Title>
         <Top>
           <Link to={"/"}>
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>YOUR FAVOURITES</TopTexts>
         </Top>
-        <ProductContainer>
-          {products.slice(0, 8).map((item) => (
-            <Product item={item} key={item._id} />
-          ))}
-        </ProductContainer>
+        {products.length > 0 ? (
+          <ProductContainer>
+            {products.map((item) => (
+              <Product item={item} key={item._id} />
+            ))}
+          </ProductContainer>
+        ) : (
+          <DescWrapper>
+            <Title language={i18n.language}>{t("fav-title")}</Title>
+            <Desc language={i18n.language}>{t("search-desc")}</Desc>
+          </DescWrapper>
+        )}
       </Wrapper>
       <Footer />
     </Container>

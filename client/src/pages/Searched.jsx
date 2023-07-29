@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import Product from "../components/Product";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div``;
 
@@ -56,6 +57,7 @@ const ProductContainer = styled.div`
 const Searched = () => {
   const params = useParams();
   const [products, setProducts] = useState([]);
+  const { t } = useTranslation();
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -88,8 +90,8 @@ const Searched = () => {
         </ProductContainer>
       ) : (
         <Wrapper>
-          <Title>There is no product you search.</Title>
-          <Desc>Happy shopping.</Desc>
+          <Title>{t("search-title")}</Title>
+          <Desc>{t("search-desc")}</Desc>
         </Wrapper>
       )}
 

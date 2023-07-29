@@ -8,12 +8,25 @@ import Products from "../components/Products";
 import { mobile } from "../responsive";
 import { publicRequest } from "../requestMethods";
 import { Announcement } from "../components/Announcement";
+import { Link } from "react-router-dom";
 
 const Container = styled.div``;
 
-const Title = styled.h1`
-  padding: 20px;
-  text-transform: capitalize;
+const Top = styled.div`
+  padding: 100px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+`;
+
+const TopButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
 `;
 
 const FilterContainer = styled.div`
@@ -74,7 +87,11 @@ const ProductList = () => {
     <Container>
       <Navbar />
       <Announcement />
-      <Title>{cat}</Title>
+      <Top>
+        <Link to={"/"}>
+          <TopButton>CONTINUE SHOPPING</TopButton>
+        </Link>
+      </Top>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -97,7 +114,7 @@ const ProductList = () => {
         <Filter>
           <FilterText>Sort Products:</FilterText>
           <Select onChange={(e) => setSort(e.target.value)}>
-            <Option value="newest">Newest</Option>
+            <Option value="newest">Prices</Option>
             <Option value="asc">Price (asc)</Option>
             <Option value="desc">Price (desc)</Option>
           </Select>

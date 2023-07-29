@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   position: fixed;
@@ -33,31 +34,23 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const Language = styled.div`
-  cursor: pointer;
-  font-size: 18px;
-  width: 36px;
-  ${mobile({ display: "none" })};
-`;
 const SearchContainer = styled.form`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
-  margin-left: 18px;
+  margin-left: 0px;
   padding: 10px;
   border-radius: 5px;
-  ${mobile({ padding: "5px" })}
+  ${mobile({ padding: "5px", marginLeft: "5px" })}
 `;
 const Input = styled.input`
   border: none;
-  ${mobile({ width: "100px" })}
+  ${mobile({ width: "50px" })}
 `;
 
 const Center = styled.div`
   text-align: center;
   flex: 1;
-
-  ${mobile({ paddingLeft: "18px" })}
 `;
 
 const Logo = styled.h1`
@@ -71,16 +64,22 @@ const Right = styled.div`
   justify-content: flex-end;
   ${mobile({ paddingRight: "18px" })}
 `;
+const Language = styled.div`
+  cursor: pointer;
+  font-size: 18px;
+  width: 20px;
+  margin-right: 14px;
+`;
 const MenuItem = styled.div`
   cursor: pointer;
   font-size: 14px;
-  margin-left: 10px;
+  margin-left: 8px;
   ${mobile({ fontSize: "12px" })}
 `;
 
 export const Navbar = () => {
-  const [language, setLanguage] = useState(true);
   const [input, setInput] = useState("");
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
 
   const quantity = useSelector((state) => state.cart.products.length);
@@ -98,17 +97,13 @@ export const Navbar = () => {
   };
 
   const handleLanguage = () => {
-    setLanguage(!language);
-    i18next.changeLanguage(!language ? "en" : "mm");
+    i18next.changeLanguage(i18n.language == "en-US" ? "mm" : "en-US");
   };
 
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Language onClick={(e) => handleLanguage(e)}>
-            {language ? "EN" : "MM"}
-          </Language>
           <SearchContainer onSubmit={submitHandler}>
             <Input
               placeholder="search"
@@ -130,6 +125,12 @@ export const Navbar = () => {
           {/* <Link to="/login" style={{ textDecoration: "none", color: "#000" }}>
             <MenuItem>SIGN IN</MenuItem>
           </Link> */}
+
+          <Tooltip title="Change Language" arrow>
+            <Language onClick={(e) => handleLanguage(e)}>
+              {i18n.language == "en-US" ? "EN" : "MM"}
+            </Language>
+          </Tooltip>
           <Link
             to="/favourites"
             style={{ textDecoration: "none", color: "#000" }}
@@ -149,7 +150,10 @@ export const Navbar = () => {
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <Tooltip title="View Cart" arrow>
-                  <ShoppingCartIcon sx={{ color: "teal" }} aria-label="cart" />
+                  <ShoppingCartIcon
+                    sx={{ color: "#2e8094" }}
+                    aria-label="cart"
+                  />
                 </Tooltip>
               </Badge>
             </MenuItem>

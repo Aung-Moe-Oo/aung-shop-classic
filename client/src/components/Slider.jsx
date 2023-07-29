@@ -82,17 +82,19 @@ const InfoContainer = styled.div`
   flex: 3;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   padding: 50px 20px;
+  gap: 20px;
 `;
 const Title = styled.h1`
-  font-size: 40px;
+  font-size: ${(props) => (props.language !== "mm" ? "40px" : "30px")};
+  height: 40px;
 `;
-const Desc = styled.p`
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 2px;
+const Desc = styled.h4`
+  margin: 30px 10px 30px 0;
+  font-size: ${(props) => (props.language !== "mm" ? "20px" : "19px")};
+  line-height: 35px;
+  font-weight: 400;
+  letter-spacing: ${(props) => (props.language !== "mm" ? "0px" : "1.5px")};
 `;
 const Button = styled.button`
   padding: 10px;
@@ -104,7 +106,7 @@ const Button = styled.button`
 
 const Slider = () => {
   const [slideindex, setSlideindex] = useState(0);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideindex(slideindex > 0 ? slideindex - 1 : 2);
@@ -125,8 +127,10 @@ const Slider = () => {
           </ImgContainer>
 
           <InfoContainer>
-            <Title>{t("hero-popular")}</Title>
-            <Desc>{t("hero-desc")}</Desc>
+            <Title language={i18n.language}>{t("hero-popular")}</Title>
+            <Desc language={i18n.language}>
+              {t("hero-desc")} <br /> {t("hero-desc2")}
+            </Desc>
             <Link to={`/products/man`}>
               <Button>SHOP NOW</Button>
             </Link>
@@ -138,8 +142,10 @@ const Slider = () => {
           </ImgContainer>
 
           <InfoContainer>
-            <Title>{t("hero-winter")}</Title>
-            <Desc>{t("hero-desc")}</Desc>
+            <Title language={i18n.language}>{t("hero-winter")}</Title>{" "}
+            <Desc language={i18n.language}>
+              {t("hero-desc")} <br /> {t("hero-desc2")}
+            </Desc>
             <Link to={`/products/winter`}>
               <Button>SHOP NOW</Button>
             </Link>
@@ -151,8 +157,10 @@ const Slider = () => {
           </ImgContainer>
 
           <InfoContainer>
-            <Title>{t("hero-summer")}</Title>
-            <Desc>{t("hero-desc")}</Desc>
+            <Title language={i18n.language}>{t("hero-summer")}</Title>{" "}
+            <Desc language={i18n.language}>
+              {t("hero-desc")} <br /> {t("hero-desc2")}
+            </Desc>
             <Link to={`/products/tshirt`}>
               <Button>SHOP NOW</Button>
             </Link>

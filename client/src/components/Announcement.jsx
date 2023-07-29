@@ -10,13 +10,14 @@ const Container = styled.div`
   z-index: 10;
 
   height: 30px;
-  background-color: teal;
+  background-color: #2e8094;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   font-weight: 500;
+  letter-spacing: 1px;
   ${mobile({ top: "48px" })}
 `;
 export const Announcement = () => {

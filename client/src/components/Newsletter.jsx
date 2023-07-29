@@ -20,11 +20,11 @@ const Title = styled.h1`
   ${mobile({ fontSize: "30px" })}
 `;
 const Desc = styled.div`
-  font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-weight: 300;
-
-  ${mobile({ textAlign: "center", fontSize: "20px" })}
+  height: 24px;
+  font-size: ${(props) => (props.language == "mm" ? "20px" : "24px")};
+  ${mobile({ textAlign: "center", fontSize: "14px", padding: "0 5px" })};
 `;
 const InputContainer = styled.form`
   width: 50%;
@@ -45,12 +45,12 @@ const Button = styled.button`
   flex: 1;
   border: none;
   color: #fff;
-  background-color: teal;
+  background-color: #2e8094;
 `;
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const sendMail = async () => {
@@ -68,7 +68,7 @@ const Newsletter = () => {
   return (
     <Container>
       <Title>Newsletter</Title>
-      <Desc>{t("newsletter")}</Desc>
+      <Desc language={i18n.language}>{t("newsletter")}</Desc>
       <InputContainer onSubmit={sendMail}>
         <Input
           type="email"
