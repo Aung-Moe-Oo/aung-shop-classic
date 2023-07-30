@@ -97,7 +97,7 @@ export const Navbar = () => {
   };
 
   const handleLanguage = () => {
-    i18next.changeLanguage(i18n.language == "en-US" ? "mm" : "en-US");
+    i18next.changeLanguage(i18n.language == "mm" ? "en-US" : "mm");
   };
 
   return (
@@ -128,7 +128,7 @@ export const Navbar = () => {
 
           <Tooltip title="Change Language" arrow>
             <Language onClick={(e) => handleLanguage(e)}>
-              {i18n.language == "en-US" ? "EN" : "MM"}
+              {i18n.language == "mm" ? "MM" : "EN"}
             </Language>
           </Tooltip>
           <Link
